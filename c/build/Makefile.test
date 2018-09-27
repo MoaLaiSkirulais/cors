@@ -1,7 +1,15 @@
+LFLAGS=-pthread -rdynamic -ldl -lm
+
 default: main
+
+# compiler
+mongoose.o: ../mongoose.c ../mongoose.h 
+	gcc -c ../mongoose.c -o mongoose.o 
 
 main.o: ../main.c ../mongoose.h
 	gcc -c ../main.c -o main.o 
 
-main: main.o
-	gcc main.o -o main.exe
+# linker
+main: main.o mongoose.o
+	gcc main.o mongoose.o $(LFLAGS) -o main.exe
+	
