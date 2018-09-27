@@ -1,6 +1,0 @@
-all:
-
-	@rm -rf $(ROOTBUILD)/main;
-
-	# compiler 
-	@x86_64-w64-mingw32-gcc $(INC) $(FLAGS) -c ../mongoose.c -o $(ROOTBUILD)/mongoose.o
