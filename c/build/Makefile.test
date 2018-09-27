@@ -7,10 +7,13 @@ default: main
 mongoose.o: ../mongoose.c ../mongoose.h 
 	gcc $(FLAGS) -c ../mongoose.c -o mongoose.o 
 
+headers.o: ../headers.c ../headers.h 
+	gcc $(FLAGS) -c ../headers.c -o headers.o 
+
 main.o: ../main.c ../mongoose.h
 	gcc $(FLAGS) -c ../main.c -o main.o 
 
 # linker
-main: main.o mongoose.o
-	gcc main.o mongoose.o $(LFLAGS) -o main.exe
+main: main.o mongoose.o headers.o
+	gcc main.o mongoose.o headers.o $(LFLAGS) -o main.exe
 	
