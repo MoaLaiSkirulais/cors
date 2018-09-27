@@ -1,0 +1,45 @@
+<html>
+ 
+	<head>
+		 
+		<title>Ejemplo sencillo de CORS</title>
+	 
+		<script
+		  src="https://code.jquery.com/jquery-3.3.1.min.js"
+		  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+		  crossorigin="anonymous"></script>
+		 
+		<script>
+				function realizaProceso(valorCaja1, valorCaja2){
+		        var parametros = {
+		                "valorCaja1" : valorCaja1,
+		                "valorCaja2" : valorCaja2
+		        };
+
+				var url="http://172.22.107.5:5001/cors"
+
+		        $.ajax({
+
+		                data:  parametros,
+		                url:   url,
+		                type:  'post',
+						contentType: "application/json; charset=utf-8", 
+
+		                beforeSend: function () {
+							console.log("before")
+		                },
+
+		                success:  function (response) {
+							console.log("response", response)
+		                }
+		        });
+		}
+		</script>
+	 
+	</head>
+	 
+	<body>
+		<input type="button" href="javascript:;" onclick="realizaProceso(); return false;" value="Call"/>	 
+	</body>
+ 
+</html>
