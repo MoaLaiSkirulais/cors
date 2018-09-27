@@ -15,28 +15,39 @@ int handler(struct mg_connection *conn, enum mg_event ev) {
 	headers_load_headers();
 
 	if (ev == MG_REQUEST) {
-
-		char content[] = "{}";
-		unsigned int contentLength = strlen(content);
-		char httpStatus[] = "200";
-
-		char* mimeType = "application/json";
 		
-		mg_printf(conn,
-			"HTTP/1.1 %s OK\r\n"
-			"Cache: no-cache\r\n"
-			"%s"
-			"Content-Type: %s\r\n"
-			"Content-Length: %d\r\n"
-			"\r\n",
-			httpStatus, 
-			headers_get_headers(), 
-			mimeType,
-			contentLength);
+		if (
+				(strcmp(conn->request_method, "POST") == 0) || 
+				(strcmp(conn->request_method, "OPTIONS") == 0) || 
+				(strcmp(conn->request_method, "GET") == 0)			
+			){
 
-		mg_write(conn, content, contentLength);
-		printf("METHOD: %s\n", conn->request_method);
-		return MG_TRUE;
+			char httpStatus[] = "200";
+			if (strcmp(conn->request_method, "OPTIONS") == 0) {
+				strcpy(httpStatus, "200");
+			}
+
+			char content[] = "{\"foo\":\"bar\"}";
+			unsigned int contentLength = strlen(content);
+
+			char* mimeType = "application/json";
+
+			mg_printf(conn,
+				"HTTP/1.1 %s OK\r\n"
+				"Cache: no-cache\r\n"
+				"%s"
+				"Content-Type: %s\r\n"
+				"Content-Length: %d\r\n"
+				"\r\n",
+				httpStatus, 
+				headers_get_headers(), 
+				mimeType,
+				contentLength);
+
+			mg_write(conn, content, contentLength);
+			printf("METHOD: %s\n", conn->request_method);
+			return MG_TRUE;
+		}
 
 	} else {
 		
