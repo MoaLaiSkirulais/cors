@@ -1,4 +1,4 @@
-FLAGS=-Werror -g -Werror=discarded-qualifiers
+FLAGS=-Werror -g -Werror=discarded-qualifiers -Werror=format-zero-length -Werror=format-security
 LFLAGS=-pthread -rdynamic -ldl -lm
 
 default: main
