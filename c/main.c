@@ -3,7 +3,6 @@
 #include <string.h>
 
 #include "mongoose.h"
-
 #include "headers.h"
 
 // --------------
@@ -16,22 +15,32 @@ int handler(struct mg_connection *conn, enum mg_event ev) {
 
 	if (ev == MG_REQUEST) {
 		
+		/* vars */
+		char httpStatus[10];
+		char headers[1000]; 
+		char mimeType[200];
+		char content[500];
+		
 		if (
+				(strcmp(conn->request_method, "PUT") == 0) || 
 				(strcmp(conn->request_method, "POST") == 0) || 
 				(strcmp(conn->request_method, "OPTIONS") == 0) || 
 				(strcmp(conn->request_method, "GET") == 0)			
 			){
 
-			char httpStatus[] = "200";
+			/* get, post */
+			strcpy(httpStatus, "200");
+			strcpy(headers, headers_get_headers());
+			strcpy(mimeType, "application/json");
+			strcpy(content, "{\"foo\":\"bar\"}");
+			
+			/* options */
 			if (strcmp(conn->request_method, "OPTIONS") == 0) {
 				strcpy(httpStatus, "200");
+				strcpy(headers, headers_get_headers());
 			}
-
-			char content[] = "{\"foo\":\"bar\"}";
-			unsigned int contentLength = strlen(content);
-
-			char* mimeType = "application/json";
-
+			
+			/* response */
 			mg_printf(conn,
 				"HTTP/1.1 %s OK\r\n"
 				"Cache: no-cache\r\n"
@@ -40,11 +49,12 @@ int handler(struct mg_connection *conn, enum mg_event ev) {
 				"Content-Length: %d\r\n"
 				"\r\n",
 				httpStatus, 
-				headers_get_headers(), 
+				headers, 
 				mimeType,
-				contentLength);
+				strlen(content));
 
-			mg_write(conn, content, contentLength);
+			/* send */
+			mg_write(conn, content, strlen(content));
 			printf("METHOD: %s\n", conn->request_method);
 			return MG_TRUE;
 		}
@@ -65,8 +75,6 @@ int handler(struct mg_connection *conn, enum mg_event ev) {
 // --------------
 
 int main() {
-	
-	
 
 	struct mg_server *mg_server = mg_create_server(NULL, handler);
 	mg_set_option(mg_server, "listening_port", "8090");

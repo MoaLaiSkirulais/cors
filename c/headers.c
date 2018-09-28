@@ -36,24 +36,25 @@ char *headers_get_headers() {
 int headers_load_headers() {
 
 	FILE *fp;
-    char *line = NULL;
-    size_t len = 0;
-    ssize_t read;
+	char *line = NULL;
+	size_t len = 0;
+	ssize_t read;
 	total_headers=0;
 
-    fp = fopen("headers.ini", "r");
-    
+	fp = fopen("headers.ini", "r");
+
 	/* loop */
-    while ((read = getline(&line, &len, fp)) != -1) {
+	while ((read = getline(&line, &len, fp)) != -1) {
 		strcpy(headers[total_headers], line);
 		total_headers++;
-    }
+	}
 
 	/* close */
-    fclose(fp);
-    if (line) {
-        free(line);
+	fclose(fp);
+	if (line) {
+		free(line);
 	}
 
 }
 
+// https://developer.mozilla.org/es/docs/Web/HTTP/Access_control_CORS
