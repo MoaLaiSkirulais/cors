@@ -38,8 +38,9 @@ int handler(struct mg_connection *conn, enum mg_event ev) {
 			if (strcmp(conn->request_method, "OPTIONS") == 0) {
 				strcpy(httpStatus, "200");
 				strcpy(headers, headers_get_headers());
+				strcpy(content, "");
 			}
-			
+
 			/* response */
 			mg_printf(conn,
 				"HTTP/1.1 %s OK\r\n"
@@ -55,7 +56,8 @@ int handler(struct mg_connection *conn, enum mg_event ev) {
 
 			/* send */
 			mg_write(conn, content, strlen(content));
-			printf("METHOD: %s\n", conn->request_method);
+			printf("\nMETHOD: %s\n", conn->request_method);
+			printf("%s\n", headers);
 			return MG_TRUE;
 		}
 

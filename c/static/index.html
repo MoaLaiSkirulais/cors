@@ -6,6 +6,7 @@
 			src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous">
 		</script>
 		
+		<script src="jano.js"></script>
 		<script src="scripts.js"></script>
 		
 		<link href="style.css" rel="stylesheet" type="text/css"/>
@@ -17,8 +18,17 @@
 		<input type="button" onclick="sample_post(); return false;" value="[Sample 2 | POST]"/><br/><br/>
 		<input type="button" onclick="sample_non_simple_contenttype(); return false;" value="[Sample 3 | sample_non_simple_contenttype]"/><br/><br/>
 		<input type="button" onclick="sample_non_method_put(); return false;" value="[Sample 4 | sample_non_method_put]"/><br/><br/>
-		<input type="button" onclick="sample5(); return false;" value="[Sample 5]"/><br/><br/>
-		<input type="button" onclick="sample6(); return false;" value="[Sample 6]"/><br/><br/>
+		
+		<br>
+		<br>
+		jano
+		<br>		
+		<input type="button" onclick="simple_get(); return false;" value="[simple_get]"/><br/><br/>
+		<input type="button" onclick="simple_post(); return false;" value="[simple_post]"/><br/><br/>
+		<input type="button" onclick="simple_post_ext(); return false;" value="[simple_post_ext]"/><br/><br/>
+		<input type="button" onclick="simple_post_ext_params(); return false;" value="[simple_post_ext_params]"/><br/><br/>
+		<input type="button" onclick="change_cors(); return false;" value="[change_cors]"/><br/><br/>
+		
 	</body>
 	
 </html>

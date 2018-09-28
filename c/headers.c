@@ -25,7 +25,7 @@ char *headers_get_headers() {
 		sprintf(Buffer, "%s%s", Buffer, headers[i]);
 	}
 	
-	printf("%s", Buffer);
+	// printf("%s", Buffer);
 	return Buffer;
 }
 
