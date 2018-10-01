@@ -18,7 +18,7 @@ int handler(struct mg_connection *conn, enum mg_event ev) {
 		/* vars */
 		char httpStatus[10];
 		char headers[1000]; 
-		char mimeType[200];
+		char contentType[200];
 		char content[500];
 		
 		if (
@@ -31,13 +31,14 @@ int handler(struct mg_connection *conn, enum mg_event ev) {
 			/* get, post */
 			strcpy(httpStatus, "200");
 			strcpy(headers, headers_get_headers());
-			strcpy(mimeType, "application/json");
+			strcpy(contentType, "application/json");
 			strcpy(content, "{\"foo\":\"bar\"}");
 			
 			/* options */
 			if (strcmp(conn->request_method, "OPTIONS") == 0) {
 				strcpy(httpStatus, "200");
 				strcpy(headers, headers_get_headers());
+				strcpy(contentType, "");
 				strcpy(content, "");
 			}
 
@@ -51,7 +52,7 @@ int handler(struct mg_connection *conn, enum mg_event ev) {
 				"\r\n",
 				httpStatus, 
 				headers, 
-				mimeType,
+				contentType,
 				strlen(content));
 
 			/* send */

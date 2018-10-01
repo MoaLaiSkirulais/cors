@@ -25,7 +25,6 @@ char *headers_get_headers() {
 		sprintf(Buffer, "%s%s", Buffer, headers[i]);
 	}
 	
-	// printf("%s", Buffer);
 	return Buffer;
 }
 
@@ -57,4 +56,3 @@ int headers_load_headers() {
 
 }
 
-// https://developer.mozilla.org/es/docs/Web/HTTP/Access_control_CORS
